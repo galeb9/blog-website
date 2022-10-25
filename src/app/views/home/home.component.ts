@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { API, Auth } from 'aws-amplify';
-
+import { Auth } from 'aws-amplify';
+import { Router } from '@angular/router'
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -8,18 +8,10 @@ import { API, Auth } from 'aws-amplify';
 })
 export class HomeComponent implements OnInit {
   isLoggedIn = false;
-  blogs = [{ title: "", description: "", text: "", author: ""}];
 
-  params = {
-    headers: {},
-    response: true, 
-    queryStringParameters: {}
-  };
-
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.getBlogs()
     this.verifyUserLoggedIn()
   }
 
@@ -28,16 +20,4 @@ export class HomeComponent implements OnInit {
       .then(user => this.isLoggedIn = true)
       .catch(err => this.isLoggedIn = false)
   }
-
-  getBlogs() {
-    API.get("blogApi", "/blogs" + '/{proxy+}', this.params)
-      .then((response: any) => {
-        console.log(response.data)
-        this.blogs = response.data
-      })
-      .catch((error: { response: any; }) => {
-        console.log("error:",error.response);
-    });
-  }
-
 }

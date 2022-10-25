@@ -12,7 +12,8 @@ export class HeaderComponent implements OnInit {
   isLoggedIn: any = null;
 
   links = [
-    {text: "Home", path: ""}
+    {text: "Home", path: ""},
+    {text: "Blogs", path: "blogs"}
   ]
 
   username: string = "";

@@ -13,12 +13,30 @@ import { NotFoundComponent } from './components/not-found/not-found.component'
 
 // views
 import { HomeComponent } from './views/home/home.component';
+import { BlogsComponent } from './views/blogs/blogs.component';
+import { AllBlogsComponent } from './components/blogs/all-blogs/all-blogs.component';
+import { SingleBlogComponent } from './components/blogs/single-blog/single-blog.component';
 
 const appRoutes: Routes = [
-  {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: 'home', component: HomeComponent},
-  {path: 'auth', component: AuthComponent},
-  {path: '**', component: NotFoundComponent}
+  // {path: '', redirectTo: '/home', pathMatch: 'full'},
+  { path: '', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
+  { 
+    path: 'blogs', 
+    component: BlogsComponent,
+    children: [
+      {
+          path: '',
+          component: AllBlogsComponent
+      },
+      {
+        path: 'blog/:id',
+        component: SingleBlogComponent
+      }
+    ]
+  },
+  { path: 'auth', component: AuthComponent },
+  { path: '**', component: NotFoundComponent }
 ]
 
 @NgModule({
@@ -27,7 +45,10 @@ const appRoutes: Routes = [
     AuthComponent,
     HomeComponent,
     HeaderComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    BlogsComponent,
+    AllBlogsComponent,
+    SingleBlogComponent
   ],
   imports: [
     BrowserModule,
