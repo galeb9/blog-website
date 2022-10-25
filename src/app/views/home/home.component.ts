@@ -7,18 +7,23 @@ import { API, Auth } from 'aws-amplify';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  isLoggedIn = false;
+  blogs = [{ title: "", description: "", text: "", author: ""}];
+
   params = {
     headers: {},
     response: true, 
     queryStringParameters: {}
-  }
-  isLoggedIn = false;
-  blogs = [{ title: "", text: "", author: ""}];
+  };
 
   constructor() { }
 
   ngOnInit(): void {
     this.getBlogs()
+    this.verifyUserLoggedIn()
+  }
+
+  verifyUserLoggedIn () {
     Auth.currentAuthenticatedUser()
       .then(user => this.isLoggedIn = true)
       .catch(err => this.isLoggedIn = false)
@@ -27,6 +32,7 @@ export class HomeComponent implements OnInit {
   getBlogs() {
     API.get("blogApi", "/blogs" + '/{proxy+}', this.params)
       .then((response: any) => {
+        console.log(response.data)
         this.blogs = response.data
       })
       .catch((error: { response: any; }) => {

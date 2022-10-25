@@ -7,6 +7,17 @@ import 'core-js/es/object';
 };
 
 
+
+// for getting rid of warnings
+if(!window.console) {
+  var console = {
+   log : function(){},
+   warn : function(){},
+   error : function(){},
+   time : function(){},
+   timeEnd : function(){}
+  }
+ }
 /**
  * This file includes polyfills needed by Angular and is loaded before the app.
  * You can add your own extra polyfills to this file.

@@ -36,6 +36,13 @@ button {
     cursor: pointer;
 }
 
+// components  
+.item-container {
+    padding: 20px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
 // auth
 [data-amplify-authenticator] [data-amplify-router] {
     border:none;
