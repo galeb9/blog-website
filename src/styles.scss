@@ -1,7 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@aws-amplify/ui-angular/theme.css';
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
+:root {
+    --secondary: rgb(107, 107, 179);
+    --secondaryLight: rgba(107, 107, 179, 0.63);
+
+    --radius: 8px;
+    
+    --shadow: rgba(0, 0, 0, 0.34) 0px 3px 8px;
+    --shadowStrong: rgba(0, 0, 0, 0.54) 0px 3px 8px;
+}
+
+html, body {
+    font-family: 'Oswald', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+button {
+    padding: 0.6em 1.8em;
+    border-radius: var(--radius);
+    border: none;
+    outline: none;
+    background-color: var(--secondary);
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+// auth
+[data-amplify-authenticator] [data-amplify-router] {
+    border:none;
+    box-shadow: var(--shadow);
+}
+// end auth 

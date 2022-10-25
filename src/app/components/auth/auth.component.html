@@ -1,1 +1,21 @@
-<p>auth works!</p>
+
+
+<div class="auth__container">
+    <div class="auth">
+        <amplify-authenticator>
+            <ng-template
+              amplifySlot="authenticated"
+              let-user="user"
+              let-signOut="signOut"
+            >
+              <h1>Welcome {{ user.username }}!</h1>
+              <button (click)="signOut()">Sign Out</button>
+            </ng-template>
+        </amplify-authenticator>
+    </div>
+    <div class="go__back">
+        <p>or</p>
+        <a routerLink="">Go home</a>
+    </div>
+
+</div>

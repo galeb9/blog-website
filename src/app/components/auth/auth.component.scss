@@ -1,0 +1,19 @@
+.auth__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 100px;
+    .auth {
+        box-shadow: var(--shadow);
+        padding: 20px;
+    }
+    .go__back {
+        text-align: center;
+        p {
+            color: inherit;
+            opacity: 0.67;
+        }
+    }
+}

@@ -1,0 +1,17 @@
+<div class="header__container">
+    <div class="header">
+        <h2 class="header__title">{{ title }}</h2>
+        <div class="header__right">
+            <a *ngFor="let link of links" [routerLink]="link.path">{{ link.text }}</a>
+
+            <button *ngIf="isLoggedIn === true ; else login" (click)="signOut()">
+                <a routerLink="auth">Log out</a>
+            </button>
+            <ng-template #login>
+                <a routerLink="auth">
+                    <button>Login</button>
+                </a>
+            </ng-template>
+        </div>
+    </div>
+</div>

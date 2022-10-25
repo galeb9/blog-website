@@ -1,0 +1,10 @@
+<div class="home">
+    <p>Is Logged in? {{ isLoggedIn }}</p>
+    <button (click)="getBlogs()">get blogs</button>
+    <div *ngFor="let blog of blogs" >
+        <h2>{{ blog.title }}</h2>
+        <p>{{ blog.text }}</p>
+        <p>by {{ blog.author }}</p>
+    </div>
+</div>
+

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { API } from 'aws-amplify';
+import { API, Auth } from 'aws-amplify';
 
 @Component({
   selector: 'app-home',
@@ -12,19 +12,22 @@ export class HomeComponent implements OnInit {
     response: true, 
     queryStringParameters: {}
   }
-
+  isLoggedIn = false;
+  blogs = [{ title: "", text: "", author: ""}];
 
   constructor() { }
 
   ngOnInit(): void {
-
+    this.getBlogs()
+    Auth.currentAuthenticatedUser()
+      .then(user => this.isLoggedIn = true)
+      .catch(err => this.isLoggedIn = false)
   }
 
   getBlogs() {
-    // add godamn /{proxy+}
     API.get("blogApi", "/blogs" + '/{proxy+}', this.params)
       .then((response: any) => {
-        console.log(response)
+        this.blogs = response.data
       })
       .catch((error: { response: any; }) => {
         console.log("error:",error.response);

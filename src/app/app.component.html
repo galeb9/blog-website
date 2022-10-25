@@ -1,17 +1,4 @@
 <div class="app-root">
-
-  <amplify-authenticator>
-    <ng-template
-      amplifySlot="authenticated"
-      let-user="user"
-      let-signOut="signOut"
-    >
-      <h1>Welcome {{ user.username }}!</h1>
-      <button (click)="signOut()">Sign Out</button>
-    </ng-template>
-  </amplify-authenticator>
-
-  <h1>Initial componet</h1>
-  <app-auth></app-auth>
-  <app-home></app-home>
+  <app-header></app-header>
+  <router-outlet></router-outlet>
 </div>
