@@ -1,0 +1,10 @@
+{
+  "resourceName": "blogWebsiteTable",
+  "tableName": "blogWebsiteTable",
+  "partitionKey": {
+    "fieldName": "id",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}
