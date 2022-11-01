@@ -1,2 +1,11 @@
-<p>single-blog works! {{ itemId }}</p>
-<p>Single blog: {{ singleBlog.author }}</p>
+<div *ngIf="blog" class="single-blog">
+    <div class="single-blog__head">
+        <h2 class="single-blog__head-title">{{ blog.title }}</h2>
+        <p class="single-blog__head-author">By {{ blog.author }}</p>
+    </div>
+    <div class="single-blog__body">
+        <p class="single-blog__text" [innerHTML]="blog.text" ></p>
+    </div>
+</div>
+
+<a routerLink="/blogs" class="go-back">Back to blogs</a>

@@ -10,6 +10,6 @@ export class AuthComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-   console.log(Auth.currentSession())
+    // console.log(Auth.currentSession())
   }
 }

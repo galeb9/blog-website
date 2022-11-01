@@ -1,0 +1,22 @@
+.single-blog {
+    margin-bottom: 20px;
+    .single-blog__head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        .single-blog__head-title {
+        }
+        .single-blog__head-author {
+            font-size: 14px;
+            letter-spacing: 1px;
+            border-radius: var(--radius);
+        }
+    }
+}
+.go-back {
+    padding: 0.6em 1.2em;
+    color: var(--lightText);
+    background-color: var(--secondary);
+    border-radius: var(--radius);
+}

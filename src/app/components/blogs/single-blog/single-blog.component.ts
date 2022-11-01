@@ -9,7 +9,7 @@ import { API, Auth } from 'aws-amplify';
 })
 export class SingleBlogComponent implements OnInit {
   itemId:any = null;
-  singleBlog:any;
+  blog:any;
 
   params = {
     headers: {},
@@ -32,8 +32,8 @@ export class SingleBlogComponent implements OnInit {
     API.get("blogApi", "/blogs" + '/{proxy+}', this.params)
       .then((response: any) => {
         const item = response.data.find((item: any) => item.id === this.itemId)
-        this.singleBlog = item
-        console.log(this.singleBlog)
+        this.blog = item
+        console.log(this.blog)
       })
       .catch((error: { response: any; }) => {
         console.log("error:",error.response);

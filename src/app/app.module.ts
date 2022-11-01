@@ -16,11 +16,13 @@ import { HomeComponent } from './views/home/home.component';
 import { BlogsComponent } from './views/blogs/blogs.component';
 import { AllBlogsComponent } from './components/blogs/all-blogs/all-blogs.component';
 import { SingleBlogComponent } from './components/blogs/single-blog/single-blog.component';
+import { AddBlogComponent } from './views/add-blog/add-blog.component';
 
 const appRoutes: Routes = [
   // {path: '', redirectTo: '/home', pathMatch: 'full'},
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'auth', component: AuthComponent },
   { 
     path: 'blogs', 
     component: BlogsComponent,
@@ -35,7 +37,7 @@ const appRoutes: Routes = [
       }
     ]
   },
-  { path: 'auth', component: AuthComponent },
+  { path: 'add-blog', component: AddBlogComponent },
   { path: '**', component: NotFoundComponent }
 ]
 
@@ -48,7 +50,8 @@ const appRoutes: Routes = [
     NotFoundComponent,
     BlogsComponent,
     AllBlogsComponent,
-    SingleBlogComponent
+    SingleBlogComponent,
+    AddBlogComponent
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,12 @@
     <div class="header">
         <h2 class="header__title">{{ title }}</h2>
         <div class="header__right">
-            <a *ngFor="let link of links" [routerLink]="link.path">{{ link.text }}</a>
+            <a 
+                *ngFor="let link of links" 
+                [routerLink]="link.path"
+            >
+                <p *ngIf="link.loginGuard ? isLoggedIn : true">{{ link.text }}</p>
+            </a>
 
             <button *ngIf="isLoggedIn === true ; else login" (click)="signOut()">
                 <a routerLink="auth">Log out</a>

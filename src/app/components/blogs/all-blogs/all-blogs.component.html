@@ -1,5 +1,5 @@
     <!-- <button (click)="getBlogs()">get blogs</button> -->
-    <div *ngIf="blogs[0].title" class="blogs__container">
+    <div *ngIf="blogs[0]" class="blogs__container">
         <div class="blog item-container" *ngFor="let blog of blogs" >
             <div class="blog__body">
                 <h2 class="blog__title">{{ blog.title }}</h2>
