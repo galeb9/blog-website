@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { API, Auth } from 'aws-amplify';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+import { Blog } from '../Blog';
 
 @Component({
   selector: 'app-all-blogs',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router'
   styleUrls: ['./all-blogs.component.scss']
 })
 export class AllBlogsComponent implements OnInit {
-  blogs = [{ id: "1", title: "", description: "", text: "", author: ""}];
+  blogs: Blog[] = []
 
   params = {
     headers: {},
@@ -18,7 +19,6 @@ export class AllBlogsComponent implements OnInit {
 
   constructor(private router: Router) { }
 
-
   ngOnInit(): void {
     this.getBlogs()
   }
@@ -26,7 +26,6 @@ export class AllBlogsComponent implements OnInit {
   getBlogs() {
     API.get("blogApi", "/blogs" + '/{proxy+}', this.params)
       .then((response: any) => {
-        console.log(response.data)
         this.blogs = response.data
       })
       .catch((error: { response: any; }) => {

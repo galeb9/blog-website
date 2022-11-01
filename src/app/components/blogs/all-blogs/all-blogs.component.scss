@@ -1,7 +1,15 @@
 .blogs__container {
     margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
     .blog {
         max-width: 500px;
+        min-width: 300px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         .blog__title {}
         .blog__description {
             margin: 10px 0 20px;
@@ -24,5 +32,11 @@
             }
         }
   
+    }
+    @media only screen and (max-width: 768px) {
+        flex-direction: column;
+        .blog {
+            min-width: 220px;
+        }
     }
 }

@@ -1,13 +1,14 @@
     <!-- <button (click)="getBlogs()">get blogs</button> -->
-    <div class="blogs__container">
+    <div *ngIf="blogs[0].title" class="blogs__container">
         <div class="blog item-container" *ngFor="let blog of blogs" >
-            <h2 class="blog__title">{{ blog.title }}</h2>
-            <p class="blog__description">{{ blog.description }}</p>
-
-            <!-- <p class="blog__text" [innerHTML]="blog.text" ></p> -->
+            <div class="blog__body">
+                <h2 class="blog__title">{{ blog.title }}</h2>
+                <p class="blog__description">{{ blog.description }}</p>
+                <!-- <p class="blog__text" [innerHTML]="blog.text" ></p> -->
+            </div>
 
             <div class="blog__footer">
-                <p class="blog__author">by {{ blog.author }}</p>
+                <p class="blog__author">By {{ blog.author }}</p>
                 <a routerLink="/blogs/blog/{{ blog.id }}" class="blog__view-more">View more </a>
             </div>
         </div>
