@@ -1,1 +1,35 @@
-<p>add-blog works!</p>
+<div class="add-blog__container">
+    <form (ngSubmit)="onSubmit()" class="add-blog">
+        <div class="add-blog__item">
+            <label for="blog-title">Title</label>
+            <input class="add-blog__input" [(ngModel)]="title" type="text" name="title" id="blog-title">
+        </div>
+        <div class="add-blog__item">
+            <label for="blog-description">Quick blog description</label>
+            <input class="add-blog__input" [(ngModel)]="description" type="text" name="description" id="blog-description">
+        </div>
+        <div class="add-blog__item">
+            <label for="blog-description">Type your blog text here</label>
+            <!-- <input class="add-blog__input" [(ngModel)]="text" type="text" name="title" id="blog-text"> -->
+            <textarea 
+                class="add-blog__input" 
+                [(ngModel)]="text" 
+                (keyup.enter)="textareaBreak()"
+                type="text" 
+                name="text" 
+                id="blog-text"
+            ></textarea>
+        </div>
+        <button class="add-blog__btn">Add blog</button>
+    </form>
+
+    <div class="add-blog__blog">
+        <div class="add-blog__blog-header">
+            <h1>{{ capitalize(title) || "Title goes here" }}</h1>
+            <p>By {{ author || "404 user not found" }}</p>
+        </div>
+        <!-- <p class="add-blog__blog-description">{{ description ||  text ? text.split('.')[0] : "Blog description" }}</p> -->
+        <p class="add-blog__blog-description">{{ capitalize(description) ||  "Blog description" }}</p>
+        <p class="add-blog__blog-text" [innerHTML]="capitalize(text) || 'Your blog text'"></p>
+    </div>
+</div>

@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { AuthComponent } from './components/auth/auth.component';
 import { HeaderComponent } from './components/header/header.component';
 
+import { FormsModule } from '@angular/forms';
+
 import { AmplifyAuthenticatorModule } from '@aws-amplify/ui-angular';
 import { NotFoundComponent } from './components/not-found/not-found.component'
 
@@ -57,7 +59,8 @@ const appRoutes: Routes = [
     BrowserModule,
     AppRoutingModule,
     AmplifyAuthenticatorModule,
-    RouterModule.forRoot(appRoutes, { enableTracing: false})
+    RouterModule.forRoot(appRoutes, { enableTracing: false}),
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

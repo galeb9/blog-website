@@ -1,0 +1,48 @@
+.add-blog__container {
+    display: flex;
+    gap: 100px;
+    .add-blog {
+        box-shadow: var(--shadow);
+        border-radius: var(--radius);
+        padding: 2em 3em;
+
+        .add-blog__item {
+            display: flex;
+            flex-direction: column;
+            // max-width: 350px;
+            width: 350px;
+            margin-bottom: 20px;
+            .add-blog__input {
+                box-shadow: inset var(--shadow);
+                border-radius: var(--radius);
+                padding: 0.4em 1em;
+                border: none;
+                margin-top: 8px;
+            }
+            textarea {
+                max-width: 100%;
+                min-height: 30vh;
+            }
+        }
+        .add-blog__btn {
+            box-shadow: var(--shadow);
+            width: 100%;
+        }
+    }
+    .add-blog__blog {
+        flex: 1;
+        overflow-x: hidden ;
+        .add-blog__blog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .add-blog__blog-description {
+            margin: 20px 0;
+        }
+        .add-blog__blog-text {
+            overflow-wrap: break-word; 
+            // white-space: pre;
+        }
+    }
+}

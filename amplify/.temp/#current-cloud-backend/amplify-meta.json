@@ -1,0 +1,145 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-blogwebsite-dev-134302-authRole",
+      "UnauthRoleArn": "arn:aws:iam::283196658937:role/amplify-blogwebsite-dev-134302-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::283196658937:role/amplify-blogwebsite-dev-134302-authRole",
+      "Region": "eu-central-1",
+      "DeploymentBucketName": "amplify-blogwebsite-dev-134302-deployment",
+      "UnauthRoleName": "amplify-blogwebsite-dev-134302-unauthRole",
+      "StackName": "amplify-blogwebsite-dev-134302",
+      "StackId": "arn:aws:cloudformation:eu-central-1:283196658937:stack/amplify-blogwebsite-dev-134302/d9cc2e40-52c7-11ed-b016-0230153331ea",
+      "AmplifyAppId": "d3emk75w2x0cvr",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-blogwebsite-dev-134302-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+    }
+  },
+  "storage": {
+    "blogWebsiteTable": {
+      "service": "DynamoDB",
+      "providerPlugin": "awscloudformation",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-blogwebsite-dev-134302-deployment/amplify-cfn-templates/storage/blogWebsiteTable-cloudformation-template.json",
+        "logicalId": "storageblogWebsiteTable"
+      },
+      "lastPushTimeStamp": "2022-11-01T10:39:28.322Z",
+      "output": {
+        "PartitionKeyName": "id",
+        "Region": "eu-central-1",
+        "Arn": "arn:aws:dynamodb:eu-central-1:283196658937:table/blogWebsiteTable-dev",
+        "StreamArn": "arn:aws:dynamodb:eu-central-1:283196658937:table/blogWebsiteTable-dev/stream/2022-10-23T12:05:39.322",
+        "PartitionKeyType": "S",
+        "Name": "blogWebsiteTable-dev"
+      },
+      "lastPushDirHash": "6Y/l983e05Ftqp4He3TCY0QHFqQ="
+    }
+  },
+  "function": {
+    "blogWebsiteLambda": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "storage",
+          "resourceName": "blogWebsiteTable",
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "attributeEnvMap": {
+            "Name": "TABLE_NAME",
+            "Arn": "TABLE_ARN"
+          }
+        }
+      ],
+      "lastBuildTimeStamp": "2022-11-01T10:38:24.426Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2022-11-01T10:38:25.402Z",
+      "distZipFilename": "blogWebsiteLambda-4b32567a6a39355a5059-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-blogwebsite-dev-134302-deployment",
+        "s3Key": "amplify-builds/blogWebsiteLambda-4b32567a6a39355a5059-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-blogwebsite-dev-134302-deployment/amplify-cfn-templates/function/blogWebsiteLambda-cloudformation-template.json",
+        "logicalId": "functionblogWebsiteLambda"
+      },
+      "lastPushTimeStamp": "2022-11-01T10:39:28.492Z",
+      "output": {
+        "Region": "eu-central-1",
+        "Arn": "arn:aws:lambda:eu-central-1:283196658937:function:blogWebsiteLambda-dev",
+        "Name": "blogWebsiteLambda-dev",
+        "LambdaExecutionRole": "blogwebsiteLambdaRole4e696f95-dev"
+      },
+      "lastPushDirHash": "+JnkwILuiRFE3wzFZ6xFeL7jgb0="
+    }
+  },
+  "auth": {
+    "blogwebsite": {
+      "service": "Cognito",
+      "serviceType": "managed",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-blogwebsite-dev-134302-deployment/amplify-cfn-templates/auth/blogwebsite-cloudformation-template.json",
+        "logicalId": "authblogwebsite"
+      },
+      "lastPushTimeStamp": "2022-11-01T10:39:28.328Z",
+      "output": {
+        "UserPoolId": "eu-central-1_RdnXLACmM",
+        "AppClientIDWeb": "5lqkfqah5bt8rvcahgf3pvvj0a",
+        "AppClientID": "5cl9tbfuh4l013i1j92oc6fguk",
+        "IdentityPoolId": "eu-central-1:8546b863-2ee6-4eb3-af09-05c5d9aa7ad7",
+        "UserPoolArn": "arn:aws:cognito-idp:eu-central-1:283196658937:userpool/eu-central-1_RdnXLACmM",
+        "IdentityPoolName": "blogwebsite_identitypool_5e12e237__dev",
+        "UserPoolName": "blogwebsite_userpool_5e12e237"
+      },
+      "lastPushDirHash": "d+bxQW/FDvfkIyYQmuKjmDineMU="
+    }
+  },
+  "api": {
+    "blogApi": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "blogWebsiteLambda",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-blogwebsite-dev-134302-deployment/amplify-cfn-templates/api/blogApi-cloudformation-template.json",
+        "logicalId": "apiblogApi"
+      },
+      "lastPushTimeStamp": "2022-11-01T10:39:28.330Z",
+      "output": {
+        "ApiName": "blogApi",
+        "RootUrl": "https://hy5owzn0t6.execute-api.eu-central-1.amazonaws.com/dev",
+        "ApiId": "hy5owzn0t6"
+      },
+      "lastPushDirHash": "er8CRz2JTu4S4sG9wp87U8GFq3o="
+    }
+  }
+}
