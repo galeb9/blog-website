@@ -1,4 +1,5 @@
     <!-- <button (click)="getBlogs()">get blogs</button> -->
+    <p>blog limit: {{ blogsLimit }}</p>
     <div *ngIf="blogs[0]" class="blogs__container">
         <div class="blog item-container" *ngFor="let blog of blogs" >
             <div class="blog__body">

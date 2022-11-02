@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { API, Auth } from 'aws-amplify';
 import { Router } from '@angular/router';
 import { Blog } from '../Blog';
@@ -9,6 +9,7 @@ import { Blog } from '../Blog';
   styleUrls: ['./all-blogs.component.scss']
 })
 export class AllBlogsComponent implements OnInit {
+  @Input() blogsLimit: number = 0 
   blogs: Blog[] = []
 
   params = {
@@ -23,10 +24,21 @@ export class AllBlogsComponent implements OnInit {
     this.getBlogs()
   }
 
+  limitBlogs() {
+    const limitedBlogs = []
+    if(this.blogsLimit > 0 && this.blogs.length > 0) {
+      for(let i = 0; i < this.blogsLimit; i++) {
+        limitedBlogs.push(this.blogs[i])
+      }
+      this.blogs = limitedBlogs
+    }
+  }
+
   getBlogs() {
     API.get("blogApi", "/blogs/{proxy+}", this.params)
       .then((response: any) => {
         this.blogs = response.data
+        this.limitBlogs()
       })
       .catch((error: { response: any; }) => {
         console.log("error:",error.response);

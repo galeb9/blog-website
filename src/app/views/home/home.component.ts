@@ -8,6 +8,7 @@ import { Router } from '@angular/router'
 })
 export class HomeComponent implements OnInit {
   isLoggedIn = false;
+  blogLimit = 2;
 
   constructor(private router: Router) { }
 
