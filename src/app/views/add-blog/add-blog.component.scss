@@ -5,7 +5,7 @@
         box-shadow: var(--shadow);
         border-radius: var(--radius);
         padding: 2em 3em;
-
+        max-width: max-content;
         .add-blog__item {
             display: flex;
             flex-direction: column;
@@ -21,6 +21,7 @@
             }
             textarea {
                 max-width: 100%;
+                min-width: 100%;
                 min-height: 30vh;
             }
         }
@@ -39,10 +40,15 @@
         }
         .add-blog__blog-description {
             margin: 20px 0;
+            font-style: italic;
         }
         .add-blog__blog-text {
             overflow-wrap: break-word; 
             // white-space: pre;
         }
+    }
+    @media only screen and (max-width: 990px ) {
+        flex-direction: column;
+        gap: 80px;
     }
 }
