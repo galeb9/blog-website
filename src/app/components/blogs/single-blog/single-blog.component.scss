@@ -3,16 +3,27 @@
     min-height: 75vh;
     .single-blog__head {
         display: flex;
-        justify-content: space-between;
+        // justify-content: space-between;
         align-items: center;
         margin-bottom: 10px;
+        gap: 10+6px;
         .single-blog__head-title {
         }
         .single-blog__head-author {
             font-size: 14px;
             letter-spacing: 1px;
             border-radius: var(--radius);
+            border: 1px solid;
+            padding: 5px 10px;
         }
+    }
+    .single-blog__body {
+        margin-bottom: 20px;
+    }
+    .single-blog__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;      
     }
 }
 .go-back {

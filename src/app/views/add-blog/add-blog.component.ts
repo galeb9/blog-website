@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Blog } from '../../components/blogs/Blog'
 import { API, Auth } from 'aws-amplify';
 
-
 @Component({
   selector: 'app-add-blog',
   templateUrl: './add-blog.component.html',
@@ -14,7 +13,6 @@ export class AddBlogComponent implements OnInit {
   title!: string;
   description!: string;
   text!: string;
-
 
   constructor() { }
 
@@ -42,8 +40,7 @@ export class AddBlogComponent implements OnInit {
       }
 
       this.createBlog(newBlog)
-      console.log(newBlog)
-
+      // console.log(newBlog)
     } else {
       alert('Please add a title, description & blog text!')
     }
@@ -65,6 +62,10 @@ export class AddBlogComponent implements OnInit {
       .catch((error: { response: any; }) => {
         console.log("error:",error.response);
     });
+  }
+
+  addComment() {
+
   }
 
 }

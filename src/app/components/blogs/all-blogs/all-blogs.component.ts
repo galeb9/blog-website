@@ -39,6 +39,7 @@ export class AllBlogsComponent implements OnInit {
       .then((response: any) => {
         this.blogs = response.data
         this.limitBlogs()
+        console.log(response.data)
       })
       .catch((error: { response: any; }) => {
         console.log("error:",error.response);

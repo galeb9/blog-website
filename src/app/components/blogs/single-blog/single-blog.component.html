@@ -6,6 +6,15 @@
     <div class="single-blog__body">
         <p class="single-blog__text" [innerHTML]="blog.text" ></p>
     </div>
-</div>
 
+    <div class="single-blog__actions">
+        <app-vote-blog 
+            [likes]="blog.votes.likes" 
+            [dislikes]="blog.votes.dislikes"
+        ></app-vote-blog>
+        <button>Comment</button>
+    </div>
+    <app-comments [comments]="blog.comments"></app-comments>
+
+</div>
 <a routerLink="/blogs" class="go-back">Back to blogs</a>

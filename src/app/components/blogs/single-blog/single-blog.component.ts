@@ -21,8 +21,8 @@ export class SingleBlogComponent implements OnInit {
 
   ngOnInit(): void {
     this.itemId = this.getItemId()
-    this.getSingleBlog2()
-    console.log(new Date().toISOString())
+    this.getSingleBlog()
+    // console.log(new Date().toISOString())
   }
 
   getItemId() {
@@ -30,26 +30,14 @@ export class SingleBlogComponent implements OnInit {
   }
 
   getSingleBlog() {
-    API.get("blogApi", "/blogs" + '/{proxy+}', this.params)
-      .then((response: any) => {
-        const item = response.data.find((item: any) => item.id === this.itemId)
-        this.blog = item
-      })
-      .catch((error: { response: any; }) => {
-        console.log("error:",error.response);
-    });
-  }
-
-  getSingleBlog2() {
     API.get("blogApi", "/blogs/" + this.itemId, this.params)
       .then((response: any) => {
         const item = response.data.find((item: any) => item.id === this.itemId)
         this.blog = item
-        console.log(this.blog)
+        // console.log(this.blog)
       })
       .catch((error: { response: any; }) => {
         console.log("error:",error.response);
     });
   }
-
 }

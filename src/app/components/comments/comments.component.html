@@ -1,0 +1,9 @@
+<div class="comments__container">
+    <div class="comments__comment" *ngFor="let comment of comments">
+        <div class="comments__avatar">
+            <div class="comments__avatar-img">{{ comment.author[0].toUpperCase() }}</div>
+            <p class="comments__avatar-name">{{ comment.author}}</p>
+        </div>
+        <p class="comments__comment-text">{{ comment.text }}</p>
+    </div>
+</div>

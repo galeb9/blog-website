@@ -1,0 +1,20 @@
+<div class="vote-blog__container">
+    <div 
+        class="vote-blog__btn"
+        (click)="likeBlog()" 
+        [ngClass]="isLiked ? 'liked voted' : ''"
+    >
+        <div class="vote-blog__action">Like</div>
+        <div *ngIf="likes" class="vote-blog__count">{{ likes ? likes : '' }}</div>
+    </div>
+
+    <div 
+        class="vote-blog__btn"
+        (click)="dislikeBlog()" 
+        [ngClass]="isLiked === false  ? 'disliked voted' : ''"
+    >
+        <div class="vote-blog__action">Dislike</div> 
+        <!-- <fa-icon [icon]="faThumbsUp"></fa-icon> -->
+        <div *ngIf="dislikes" class="vote-blog__count">{{ dislikes ? dislikes : '' }}</div>
+    </div>
+</div>

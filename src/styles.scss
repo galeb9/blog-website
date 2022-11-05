@@ -1,6 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~@aws-amplify/ui-angular/theme.css';
-
 * {
     margin: 0;
     padding: 0;
@@ -14,9 +12,13 @@
     --lightText: white;
 
     --radius: 8px;
-    
+    --transition: all 0.25s ease-in;
     --shadow: rgba(0, 0, 0, 0.34) 0px 3px 8px;
     --shadowStrong: rgba(0, 0, 0, 0.54) 0px 3px 8px;
+
+    --error: #AE2012;
+    
+    --blue: #0a9396;
 }
 
 html, body {
@@ -52,3 +54,5 @@ button {
     box-shadow: var(--shadow);
 }
 // end auth 
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
