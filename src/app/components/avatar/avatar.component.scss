@@ -1,0 +1,19 @@
+$avatarSize: 34px;
+.avatar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    .avatar-img {
+        width: $avatarSize;
+        height: $avatarSize;
+        background-color: var(--secondary);
+        color: var(--lightText);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .avatar-name {
+        font-weight: 700;
+    }
+}

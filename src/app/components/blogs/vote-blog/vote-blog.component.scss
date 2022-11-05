@@ -3,12 +3,8 @@
     gap: 10px;
 
     .vote-blog__btn {
-        padding: 10px 20px;
         display: flex;
         gap: 8px;
-        cursor: pointer;
-        border: 2px solid var(--secondary);
-        border-radius: var(--radius);
         transition: var(--transition);
         .vote-blog__action {
 
@@ -18,7 +14,7 @@
             padding-left: 8px;
         }
     }
-    .liked { background-color: var(--blue) }     
+    .liked { background-color: var(--secondary) }     
     .disliked { background-color: var(--error) }
     .voted {
         color: white;

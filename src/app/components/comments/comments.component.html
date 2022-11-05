@@ -1,9 +1,23 @@
 <div class="comments__container">
+    <button 
+        class="comments__btn" 
+        [ngClass]="commentOpen? 'comments__btn--cancel' : ''"
+        (click)="commentOpen ? cancelComment() : commentOnBlog()"
+    >{{ commentOpen ? 'Cancel' : 'Comment' }}</button>
+
     <div class="comments__comment" *ngFor="let comment of comments">
-        <div class="comments__avatar">
-            <div class="comments__avatar-img">{{ comment.author[0].toUpperCase() }}</div>
-            <p class="comments__avatar-name">{{ comment.author}}</p>
-        </div>
+        <app-avatar [author]="comment.author"></app-avatar>
         <p class="comments__comment-text">{{ comment.text }}</p>
+    </div>
+
+    <div *ngIf="author && commentOpen" class="comments__comment-create comments__comment">
+        <app-avatar [author]="author"></app-avatar>
+        <input 
+            class="comments__comment-input comments__comment-text" 
+            type="text" 
+            placeholder="Write comment on this line..."
+            [(ngModel)]="newComment"
+        />
+        <button class="comments__comment-create-btn" (click)="postComment()">Post</button>
     </div>
 </div>

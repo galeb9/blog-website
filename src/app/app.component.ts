@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Auth } from '@aws-amplify/auth';
 
 @Component({
   selector: 'app-root',

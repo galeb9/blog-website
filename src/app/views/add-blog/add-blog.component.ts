@@ -10,6 +10,7 @@ import { API, Auth } from 'aws-amplify';
 export class AddBlogComponent implements OnInit {
   isLoggedIn!: Boolean;
   author!: string;
+  
   title!: string;
   description!: string;
   text!: string;

@@ -28,7 +28,7 @@ export class HeaderComponent implements OnInit {
 
   capitalize(str: string) {
     str = str.toLowerCase()
-    return str[0].toUpperCase + str.slice(1)
+    return str[0].toUpperCase() + str.slice(1)
   }
 
   hasRoute(route: string) { // for limit routing

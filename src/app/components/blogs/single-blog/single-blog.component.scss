@@ -6,7 +6,7 @@
         // justify-content: space-between;
         align-items: center;
         margin-bottom: 10px;
-        gap: 10+6px;
+        gap: 16px;
         .single-blog__head-title {
         }
         .single-blog__head-author {
@@ -18,7 +18,14 @@
         }
     }
     .single-blog__body {
-        margin-bottom: 20px;
+        margin-bottom: 50px;
+        padding-bottom: 50px;
+        box-shadow: 
+            rgba(107, 107, 179, 0.4) 0px 5px, 
+            rgba(107, 107, 179, 0.3) 0px 10px, 
+            rgba(107, 107, 179, 0.2) 0px 15px, 
+            rgba(107, 107, 179, 0.1) 0px 20px, 
+            rgba(107, 107, 179, 0.05) 0px 25px;
     }
     .single-blog__actions {
         display: flex;
