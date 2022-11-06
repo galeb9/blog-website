@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Blog } from '../../components/blogs/Blog'
+// import { Blog } from '../../components/blogs/Blog';
 import { API, Auth } from 'aws-amplify';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-add-blog',
   templateUrl: './add-blog.component.html',
@@ -15,7 +15,7 @@ export class AddBlogComponent implements OnInit {
   description!: string;
   text!: string;
 
-  constructor() { }
+  constructor(private route: Router) { }
 
   ngOnInit(): void {
     this.checkLoggedIn();
@@ -32,7 +32,7 @@ export class AddBlogComponent implements OnInit {
   }
 
   onSubmit() {
-    if(this.text && this.title && this.description) {
+    if(this.text && this.title && this.description && this.isLoggedIn) {
       const newBlog = {
         title: this.title,
         text: this.text,
@@ -41,7 +41,12 @@ export class AddBlogComponent implements OnInit {
       }
 
       this.createBlog(newBlog)
-      // console.log(newBlog)
+      this.title = ''
+      this.text = ''
+      this.description = ''
+      this.author = ''
+
+      this.route.navigate(['blogs'])
     } else {
       alert('Please add a title, description & blog text!')
     }
@@ -56,17 +61,15 @@ export class AddBlogComponent implements OnInit {
   }
 
   createBlog(blog: any) {
-    API.post("blogApi", "/blogs/" + "{proxy+}", {body: blog})
+    API.post("blogApi", "/blogs/", {body: blog})
       .then((response: any) => {
         console.log("it happened")
+        console.log(response)
       })
       .catch((error: { response: any; }) => {
-        console.log("error:",error.response);
+        console.log("error:", error.response);
+        console.log("error:", error.response.request.__zone_symbol__xhrURL);
+        
     });
   }
-
-  addComment() {
-
-  }
-
 }

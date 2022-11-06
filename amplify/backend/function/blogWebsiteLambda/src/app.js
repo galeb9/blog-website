@@ -172,6 +172,8 @@ app.post(path, function(req, res) {
       createdAt: timestamp,
       updatedAt: timestamp,
       userId: getUserId(req),
+      votes: { dislikes: 0, likes: 0 },
+      comments: []
     }
   }
   dynamodb.put(putItemParams, (err, data) => {
