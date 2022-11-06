@@ -4,7 +4,7 @@
         [ngClass]="commentOpen? 'comments__btn--cancel' : ''"
         (click)="commentOpen ? cancelComment() : commentOnBlog()"
     >{{ commentOpen ? 'Cancel' : 'Comment' }}</button>
-
+    
     <div class="comments__comment" *ngFor="let comment of comments">
         <app-avatar [author]="comment.author"></app-avatar>
         <p class="comments__comment-text">{{ comment.text }}</p>
