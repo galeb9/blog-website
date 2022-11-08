@@ -41,6 +41,7 @@ export class AddBlogComponent implements OnInit {
       }
 
       this.createBlog(newBlog)
+      
       this.title = ''
       this.text = ''
       this.description = ''
@@ -61,15 +62,12 @@ export class AddBlogComponent implements OnInit {
   }
 
   createBlog(blog: any) {
-    API.post("blogApi", "/blogs/", {body: blog})
+    API.post("blogApi", "/blogs/", { body: blog })
       .then((response: any) => {
-        console.log("it happened")
         console.log(response)
       })
       .catch((error: { response: any; }) => {
         console.log("error:", error.response);
-        console.log("error:", error.response.request.__zone_symbol__xhrURL);
-        
     });
   }
 }

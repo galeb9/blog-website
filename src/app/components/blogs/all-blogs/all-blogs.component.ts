@@ -35,11 +35,10 @@ export class AllBlogsComponent implements OnInit {
   }
 
   getBlogs() {
-    API.get("blogApi", "/blogs/{proxy+}", this.params)
+    API.get("blogApi", "/blogs/", this.params)
       .then((response: any) => {
         this.blogs = response.data
         this.limitBlogs()
-        console.log(response.data)
       })
       .catch((error: { response: any; }) => {
         console.log("error:",error.response);

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { API, Auth } from 'aws-amplify';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-single-blog',
@@ -8,6 +9,7 @@ import { API, Auth } from 'aws-amplify';
   styleUrls: ['./single-blog.component.scss']
 })
 export class SingleBlogComponent implements OnInit {
+  username:string = '';
   itemId:any = null;
   blog:any;
 
@@ -17,27 +19,47 @@ export class SingleBlogComponent implements OnInit {
     queryStringParameters: {}
   };
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    this.itemId = this.getItemId()
-    this.getSingleBlog()
-    // console.log(new Date().toISOString())
+    this.itemId = this.getItemId();
+    this.getSingleBlog();
+    this.getUsername();
+    // console.log(new Date().toISOString());
   }
 
   getItemId() {
     return this.route.snapshot.paramMap.get('id');
   }
 
+  getUsername() {
+    Auth.currentAuthenticatedUser()
+      .then(user =>  {
+        this.username = user.username;
+      })
+      .catch((err)=> console.log(err));
+  }
+
   getSingleBlog() {
-    API.get("blogApi", "/blogs/" + this.itemId, this.params)
+    API.get("blogApi", "/blogs/" + this.itemId, {})
       .then((response: any) => {
-        const item = response.data.find((item: any) => item.id === this.itemId)
-        this.blog = item
-        // console.log(this.blog)
+        this.blog = response;
       })
       .catch((error: { response: any; }) => {
-        console.log("error:",error.response);
+        console.log("error:", error.response);
     });
+  }
+
+  deleteSingleBlog () {
+    API.del("blogApi", "/blogs/" + this.itemId, {})
+    .then((response: any) => {
+      this.router.navigate(['blogs'])
+    })
+    .catch((error: { response: any; }) => {
+      console.log("error:", error.response);
+    });
+  }
+
+  updateSingleBlog() {
   }
 }

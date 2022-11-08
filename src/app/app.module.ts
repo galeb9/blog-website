@@ -25,6 +25,7 @@ import { VoteBlogComponent } from './components/blogs/vote-blog/vote-blog.compon
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommentsComponent } from './components/comments/comments.component';
 import { AvatarComponent } from './components/avatar/avatar.component';
+import { EditBlogComponent } from './views/edit-blog/edit-blog.component';
 
 // router
 const appRoutes: Routes = [
@@ -63,7 +64,8 @@ const appRoutes: Routes = [
     AddBlogComponent,
     VoteBlogComponent,
     CommentsComponent,
-    AvatarComponent
+    AvatarComponent,
+    EditBlogComponent
   ],
   imports: [
     // AppRoutingModule,

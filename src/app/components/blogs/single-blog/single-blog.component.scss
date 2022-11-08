@@ -30,7 +30,19 @@
     .single-blog__actions {
         display: flex;
         flex-wrap: wrap;
+        justify-content: space-between;
         gap: 16px;      
+        .single-blog__actions-btns {
+            .single-blog__actions-btns-edit { 
+                background: var(--success);
+                border-color: var(--success);
+            }
+            .single-blog__actions-btns-delete { 
+                background: var(--error);
+                border-color: var(--error);
+                margin-left: 16px;
+            }
+        }
     }
 }
 .go-back {

@@ -70,7 +70,8 @@ const getUserId = req => {
 /********************************
  * HTTP Get method for list objects *
  ********************************/
-app.get(path + hashKeyPath, function(req, res) {
+// app.get(path + hashKeyPath, function(req, res) {
+app.get(path, function(req, res) {
   // const condition = {}
   // condition[partitionKeyName] = {
   //   ComparisonOperator: 'EQ'
@@ -91,7 +92,6 @@ app.get(path + hashKeyPath, function(req, res) {
     TableName: tableName
   }
 
-  console.log("Starts to run")
   dynamodb.scan(queryParams, (err, data) => {
     if (err) {
       res.statusCode = 500;
@@ -108,7 +108,7 @@ app.get(path + hashKeyPath, function(req, res) {
  * HTTP Get method for get single object *
  *****************************************/
 
-app.get(path + '/object' + hashKeyPath + sortKeyPath, function(req, res) {
+app.get(path + hashKeyPath, function(req, res) {
   // const params = {};
   // if (userIdPresent && req.apiGateway) {
   //   params[partitionKeyName] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
@@ -132,7 +132,7 @@ app.get(path + '/object' + hashKeyPath + sortKeyPath, function(req, res) {
 
   let getItemParams = {
     TableName: tableName,
-    Key: req.params.id
+    Key: { id: req.params.id }
   }
 
   dynamodb.get(getItemParams,(err, data) => {
@@ -161,7 +161,6 @@ app.post(path, function(req, res) {
   // if (userIdPresent) {
   //   req.body['userId'] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
   // }
-  console.log("app.js req.body:", req.body)
 
   let putItemParams = {
     TableName: tableName,
@@ -172,7 +171,9 @@ app.post(path, function(req, res) {
       createdAt: timestamp,
       updatedAt: timestamp,
       userId: getUserId(req),
-      votes: { dislikes: 0, likes: 0 },
+      likes: 0,
+      dislikes: 0,
+      votedBy: [],
       comments: []
     }
   }
@@ -188,9 +189,8 @@ app.post(path, function(req, res) {
 
 
 /************************************
-* HTTP put method for insert object *
+* HTTP Update single blog*
 *************************************/
-
 
 // app.put(path, function(req, res) {
 //   if (userIdPresent) {
@@ -211,37 +211,54 @@ app.post(path, function(req, res) {
 //   });
 // });
 
-app.put(path, function(req, res) {
-
-  // will have to change to my code
+app.put(path + hashKeyPath, function(req, res) {
   const timestamp = new Date().toISOString();
 
-  let putItemParams = {
-    TableName: tableName,
-    Key: { id: req.body.id },
-    ExpressionAttributeNames: { "#text" : "text"},
-    ExpressionAttributeValues: {},
-    ReturnValues: "UPDATED_NEW"
+  const Item = {
+      ...req.body
+      // updatedAt: timestamp
   };
 
-  putItemParams.UpdateExpression = "SET";
+  let updateExpression='set';
+  let ExpressionAttributeNames={};
+  let ExpressionAttributeValues = {};
   
-  if(req.body.text) {
-    putItemParams.ExpressionAttributeValues[":text"] = req.body.text;
-    putItemParams.UpdateExpression += ":text, ";
+  for (const property in Item) {
+    updateExpression += ` #${property} = :${property} ,`;
+    ExpressionAttributeNames['#'+property] = property ;
+    ExpressionAttributeValues[':'+property]=Item[property];
+
+    // if(Item[property] === req.body.newComment) {
+      // updateExpression += "#comments = list_append(if_not_exists(#comments, :empty_list), :comment)",
+      // ExpressionAttributeNames = {
+      //   "#comments": "comments",
+      // },
+      // ExpressionAttributeValues = {
+      //   ":comment": [
+      //     { 
+      //       ":author": "matej",
+      //       ":text": "some stuff"
+      //     }
+      //   ]
+      // }
+    // }
+ 
   }
-  if(req.body.complete) {
-    putItemParams.ExpressionAttributeValues[':complete0'] = req.body.complete;
-    putItemParams.UpdateExpression += 'complete = :complete, ';
-  }
-  if(req.body.text || req.body.complete) {
-    putItemParams.ExpressionAttributeValues[":updatedAt"] = timestamp;
-    putItemParams.UpdateExpression += 'updatedAt = :updatedAt';
-  }
+
+  updateExpression= updateExpression.slice(0, -1);
+  
+  let putItemParams = {
+    TableName: tableName,
+    Key: { id: req.params.id },
+    UpdateExpression: updateExpression,
+    ExpressionAttributeNames: ExpressionAttributeNames,
+    ExpressionAttributeValues: ExpressionAttributeValues
+  };
 
   dynamodb.update(putItemParams, (err, data) => {
     if (err) {
       res.statusCode = 500;
+      console.log(err)
       res.json({ error: err, url: req.url, body: req.body });
     } else{
       res.json({ success: 'put call succeed!', url: req.url, data: data })
@@ -253,7 +270,7 @@ app.put(path, function(req, res) {
 * HTTP remove method to delete object *
 ***************************************/
 
-app.delete(path + '/object' + hashKeyPath + sortKeyPath, function(req, res) {
+app.delete(path + hashKeyPath, function(req, res) {
   // const params = {};
   // if (userIdPresent && req.apiGateway) {
   //   params[partitionKeyName] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
@@ -277,7 +294,6 @@ app.delete(path + '/object' + hashKeyPath + sortKeyPath, function(req, res) {
 
   let removeItemParams = {
     TableName: tableName,
-    // Key: params
     Key: { id: req.params.id }
   }
   dynamodb.delete(removeItemParams, (err, data)=> {

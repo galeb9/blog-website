@@ -9,10 +9,15 @@
 
     <div class="single-blog__actions">
         <app-vote-blog 
-            [likes]="blog.votes.likes || '0'" 
-            [dislikes]="blog.votes.dislikes || '0'"
+            [likes]="blog.likes" 
+            [dislikes]="blog.dislikes"
+            [likedBy]="blog.votedBy"
+            [username]="username"
         ></app-vote-blog>
-        <!-- <button>Comment</button> -->
+        <div class="single-blog__actions-btns" *ngIf="blog.author === username">
+            <button class="single-blog__actions-btns-edit">Edit</button>
+            <button (click)="deleteSingleBlog()" class="single-blog__actions-btns-delete">Delete</button>
+        </div>
     </div>
     <app-comments [comments]="blog.comments"></app-comments>
 
