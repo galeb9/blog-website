@@ -26,7 +26,6 @@ export class VoteBlogComponent implements OnInit {
 
   ngOnInit(): void {
     this.getItemId();
-    console.log(this.likedBy)
     setTimeout(() => {
       this.userAlreadyVoted(this.likedBy, this.username)
     }, 1000);

@@ -42,9 +42,14 @@ const appRoutes: Routes = [
           component: AllBlogsComponent
       },
       {
-        path: 'blog/:id',
+        path: 'edit-blog/:id',
+        component: EditBlogComponent
+      },
+      {
+        path: ':id',
         component: SingleBlogComponent
-      }
+      },
+
     ]
   },
   { path: 'add-blog', component: AddBlogComponent },

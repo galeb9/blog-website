@@ -19,7 +19,7 @@ export class SingleBlogComponent implements OnInit {
     queryStringParameters: {}
   };
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(private activatedRoute: ActivatedRoute, private route: Router) { }
 
   ngOnInit(): void {
     this.itemId = this.getItemId();
@@ -29,7 +29,7 @@ export class SingleBlogComponent implements OnInit {
   }
 
   getItemId() {
-    return this.route.snapshot.paramMap.get('id');
+    return this.activatedRoute.snapshot.paramMap.get('id');
   }
 
   getUsername() {
@@ -50,16 +50,17 @@ export class SingleBlogComponent implements OnInit {
     });
   }
 
+  editBlog() {
+    this.route.navigate([`blogs/edit-blog/${this.itemId}`])
+  }
+
   deleteSingleBlog () {
     API.del("blogApi", "/blogs/" + this.itemId, {})
     .then((response: any) => {
-      this.router.navigate(['blogs'])
+      this.route.navigate(['blogs'])
     })
     .catch((error: { response: any; }) => {
       console.log("error:", error.response);
     });
-  }
-
-  updateSingleBlog() {
   }
 }

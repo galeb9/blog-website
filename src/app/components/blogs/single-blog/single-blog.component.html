@@ -15,7 +15,7 @@
             [username]="username"
         ></app-vote-blog>
         <div class="single-blog__actions-btns" *ngIf="blog.author === username">
-            <button class="single-blog__actions-btns-edit">Edit</button>
+            <button (click)="editBlog()" class="single-blog__actions-btns-edit">Edit</button>
             <button (click)="deleteSingleBlog()" class="single-blog__actions-btns-delete">Delete</button>
         </div>
     </div>
