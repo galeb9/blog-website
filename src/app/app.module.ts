@@ -21,7 +21,7 @@ import { BlogsComponent } from './views/blogs/blogs.component';
 import { AllBlogsComponent } from './components/blogs/all-blogs/all-blogs.component';
 import { SingleBlogComponent } from './components/blogs/single-blog/single-blog.component';
 import { AddBlogComponent } from './views/add-blog/add-blog.component';
-import { VoteBlogComponent } from './components/blogs/vote-blog/vote-blog.component';
+import { VoteBlogComponent } from './components/vote-blog/vote-blog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommentsComponent } from './components/comments/comments.component';
 import { AvatarComponent } from './components/avatar/avatar.component';

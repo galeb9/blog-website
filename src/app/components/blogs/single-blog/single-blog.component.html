@@ -6,13 +6,14 @@
     <div class="single-blog__body">
         <p class="single-blog__text" [innerHTML]="blog.text" ></p>
     </div>
-
     <div class="single-blog__actions">
         <app-vote-blog 
             [likes]="blog.likes" 
             [dislikes]="blog.dislikes"
-            [likedBy]="blog.votedBy"
+            [votedBy]="blog.votedBy"
             [username]="username"
+            (like)="updateBlogVotes($event)"
+            (dislike)="updateBlogVotes($event)"
         ></app-vote-blog>
         <div class="single-blog__actions-btns" *ngIf="blog.author === username">
             <button (click)="editBlog()" class="single-blog__actions-btns-edit">Edit</button>

@@ -1,4 +1,5 @@
 $avatarSize: 34px;
+$greyBg: rgba(158, 151, 151, 0.397);
 .comments__container {
     margin: 20px 0;
     .comments__btn {
@@ -18,22 +19,28 @@ $avatarSize: 34px;
         margin-left: 26px;
     }
     .comments__comment {
-        margin-bottom: 14px;
-        box-shadow: var(--shadow);
         border-radius: var(--radius);
-        padding: 15px 20px;
         transition: var(--transition);
-        box-shadow: rgba(0, 0, 0, 0.24) -8px 10px 13px;
+        .comments__comment-body {
+            border-radius: var(--radius);
+            padding: 15px 20px;
+            transition: var(--transition);
+            box-shadow: rgba(0, 0, 0, 0.24) -8px 10px 13px;
+            margin-bottom: 14px;
             &:hover {
                 margin-bottom: 25px;
                 box-shadow: 
                     rgba(107, 107, 179, 0.4) -5px 5px, 
                     rgba(107, 107, 179, 0.3) -10px 10px, 
                     rgba(107, 107, 179, 0.2) -15px 15px, 
-            }
+            } 
+        }
+      
+
         .comments__comment-text {
             margin-left: $avatarSize + 8px;
         }
+
         .comments__comment-input {
             padding: 0 6px 6px;
             border: none;
@@ -41,6 +48,27 @@ $avatarSize: 34px;
             outline: none;
             width: max-content;
             min-width: 300px;
+        }
+        .comments__comment-actions {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .comments__chain-comments {
+            .comments__chain-comment {
+
+            }
+            .comments__new-chain-comment {
+                width: max-content;
+                padding: 15px 20px;
+                margin:  0 0 40px 50px;
+                background-color: $greyBg;
+                input {
+                    background-color: transparent;
+                }
+            }
         }
     }
 }

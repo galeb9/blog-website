@@ -12,11 +12,11 @@ export class AvatarComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.authorLetter = this.firstLetter(this.author);
+    this.authorLetter = this.firstLetter(this.author || "H");
   }
 
   firstLetter (str: string) {
-    return str[0].toUpperCase()
+    return str[0].toUpperCase() 
   }
 
 }

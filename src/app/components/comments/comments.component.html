@@ -6,10 +6,48 @@
     >{{ commentOpen ? 'Cancel' : 'Comment' }}</button>
     
     <div class="comments__comment" *ngFor="let comment of comments">
-        <app-avatar [author]="comment.author"></app-avatar>
-        <p class="comments__comment-text">{{ comment.text }}</p>
+        <div class="comments__comment-body">
+            <app-avatar [author]="comment.author"></app-avatar>
+            <p class="comments__comment-text">{{ comment.text }}</p>
+        </div>
+        <div class="comments__comment-actions">
+            <!-- <div class="vote-blog__btn">like {{ comment.likes ? comment.likes : '0' }}</div>
+            <div class="vote-blog__btn">Dislike {{ comment.dislikes ? comment.dislikes : '0' }}</div> -->
+            <app-vote-blog 
+                [likes]="comment.likes" 
+                [dislikes]="comment.dislikes"
+                [votedBy]="comment.votedBy"
+                [username]="author"
+                (like)="updateBlogVotes($event)"
+                (dislike)="updateBlogVotes($event)"
+            ></app-vote-blog>
+            <button 
+                [ngClass]="chainCommentOpen? 'comments__btn--cancel' : ''"
+                (click)="chainCommentOpen ? closeChainComments() : openChainComments()"
+            >{{ chainCommentOpen ? 'Cancel' : 'Replay' }}</button>
+
+        </div>
+
+        <div class="comments__chain-comments">
+            <div class="commetns__chain-comment"></div>
+
+            <!-- Create comment on comment chain -->
+            <div *ngIf="chainCommentOpen" class="comments__new-chain-comment comments__comment">
+                <app-avatar [author]="author"></app-avatar>
+                <input 
+                    class="comments__comment-input comments__comment-text" 
+                    type="text" 
+                    placeholder="Write comment on this line..."
+                    [(ngModel)]="newChainComment"
+                />
+                <button class="comments__comment-create-btn" (click)="addChainComment()">Add</button>
+            </div>
+        </div>
+      
     </div>
 
+
+    <!-- Create brand new comment -->
     <div *ngIf="author && commentOpen" class="comments__comment-create comments__comment">
         <app-avatar [author]="author"></app-avatar>
         <input 

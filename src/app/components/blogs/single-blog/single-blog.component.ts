@@ -13,6 +13,10 @@ export class SingleBlogComponent implements OnInit {
   itemId:any = null;
   blog:any;
 
+  isLiked:any = null;
+  voteCast:boolean = false;
+  hasVoted:any = null;
+
   params = {
     headers: {},
     response: true, 
@@ -62,5 +66,20 @@ export class SingleBlogComponent implements OnInit {
     .catch((error: { response: any; }) => {
       console.log("error:", error.response);
     });
+  }
+
+  
+  updateBlogVotes(votes:any) {
+    // let newVoters = this.blog.votedBy ? [...this.blog.votedBy] : [this.username]  
+    console.log(votes)
+
+    API.put("blogApi", "/blogs/" + this.itemId, { body: votes })
+      .then((response: any) => {
+        console.log(response)
+        console.log("successfully voted")
+      })
+      .catch((error: { response: any }) => {
+        console.log("error:", error.response);
+      });
   }
 }
