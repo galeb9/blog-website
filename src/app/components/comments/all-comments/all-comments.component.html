@@ -5,7 +5,7 @@
         (click)="commentOpen ? cancelComment() : commentOnBlog()"
     >{{ commentOpen ? 'Cancel' : 'Comment' }}</button>
     
-    <div class="comments__comment" *ngFor="let comment of comments">
+    <div class="comments__comment" *ngFor="let comment of comments; let i=index;">
 
 
         <div class="comments__comment-body">
@@ -15,6 +15,10 @@
 
 
         <div class="comments__comment-actions">
+            <button 
+                *ngIf="comment.replies.length > 0"
+                (click)="toggleComments[i] = !toggleComments[i]"
+            >Comments {{ comment.replies.length ? '(' + comment.replies.length + ')' : '' }}</button>
             <app-vote-blog 
                 [likes]="comment.likes" 
                 [dislikes]="comment.dislikes"
@@ -25,35 +29,40 @@
             ></app-vote-blog>
             <button 
                 [ngClass]="chainCommentOpen? 'comments__btn--cancel' : ''"
-                (click)="chainCommentOpen ? closeChainComments() : openChainComments()"
+                (click)="toggleReplies[i] = !toggleReplies[i]"
             >{{ chainCommentOpen ? 'Cancel' : 'Replay' }}</button>
-
         </div>
 
 
         <div class="comments__chain-comments">
 
-            <div *ngFor="let chainComment of comment.replies" class="comments__chain-comment comments__replies">
-                <app-avatar [author]="chainComment.author"></app-avatar>
-                <p class="comments__comment-text">{{ chainComment.text }}</p>
+            <!-- <div *ngIf="toggleComments[i]"> -->
+            <div          >
+                <div *ngFor="let chainComment of comment.replies" class="comments__replies">
+                    <div class="comments__replay-indentation">L</div>
+                    <div class="comments__replay">
+                        <app-avatar [author]="chainComment.author">
+                            <app-vote-blog
+                                [likes]="chainComment.likes" 
+                                [dislikes]="chainComment.dislikes"
+                                [votedBy]="chainComment.votedBy"
+                                [username]="author"
+                                (like)="updateReplayVotes($event)"
+                                (dislike)="updateReplayVotes($event)"
+                            ></app-vote-blog>
+                        </app-avatar>
+                        <p class="comments__comment-text">{{ chainComment.text }}</p>
+                    </div>
+                </div>
             </div>
 
-            <!-- Create comment on comment chain, maybe move into seperate component -->
-            <div *ngIf="chainCommentOpen" class="comments__new-chain-comment comments__comment">
-                <app-avatar [author]="author"></app-avatar>
-                <input 
-                    class="comments__comment-input comments__comment-text" 
-                    type="text" 
-                    placeholder="Write comment on this line..."
-                    [(ngModel)]="newChainComment"
-                />
-                <button class="comments__comment-create-btn" (click)="addChainComment(comment)">Add</button>
-            </div>
+            <app-create-chain-comment
+                *ngIf="toggleReplies[i]"
+                (createNewChainComment)="postChainComment($event, comment, i)"
+                [author]="author"
+            ></app-create-chain-comment>
         </div>
-
-      
     </div>
-
 
     <app-create-comment 
         *ngIf="author && commentOpen"

@@ -4,7 +4,7 @@
         (click)="likeBlog()" 
         [ngClass]="isLiked ? 'liked voted' : ''"
     >
-        <div class="vote-blog__action">Like</div>
+        <img class="vote-blog__action" src="assets/svgs/like.svg">
         <div *ngIf="likes" class="vote-blog__count">{{ likes ? likes : '' }}</div>
     </div>
 
@@ -13,8 +13,7 @@
         (click)="dislikeBlog()" 
         [ngClass]="isLiked === false  ? 'disliked voted' : ''"
     >
-        <div class="vote-blog__action">Dislike</div> 
-        <!-- <fa-icon [icon]="faThumbsUp"></fa-icon> -->
+        <img class="vote-blog__action" src="assets/svgs/dislike.svg">
         <div *ngIf="dislikes" class="vote-blog__count">{{ dislikes ? dislikes : '' }}</div>
     </div>
     

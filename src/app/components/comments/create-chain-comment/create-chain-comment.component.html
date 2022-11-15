@@ -1,0 +1,10 @@
+<div  class="comments__new-chain-comment comments__comment">
+    <app-avatar [author]="author"></app-avatar>
+    <input 
+        class="comments__comment-input comments__comment-text" 
+        type="text" 
+        placeholder="Write comment on this line..."
+        [(ngModel)]="newChainComment"
+    />
+    <button class="comments__comment-create-btn" (click)="addChainComment()">Add</button>
+</div>

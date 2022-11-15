@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class SingleBlogComponent implements OnInit {
   username:string = '';
-  itemId:any = null;
+  blogId:any = null;
   blog:any;
 
   isLiked:any = null;
@@ -26,13 +26,13 @@ export class SingleBlogComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute, private route: Router) { }
 
   ngOnInit(): void {
-    this.itemId = this.getItemId();
+    this.blogId = this.getblogId();
     this.getSingleBlog();
     this.getUsername();
     // console.log(new Date().toISOString());
   }
 
-  getItemId() {
+  getblogId() {
     return this.activatedRoute.snapshot.paramMap.get('id');
   }
 
@@ -45,7 +45,7 @@ export class SingleBlogComponent implements OnInit {
   }
 
   getSingleBlog() {
-    API.get("blogApi", "/blogs/" + this.itemId, {})
+    API.get("blogApi", "/blogs/" + this.blogId, {})
       .then((response: any) => {
         this.blog = response;
       })
@@ -55,11 +55,11 @@ export class SingleBlogComponent implements OnInit {
   }
 
   editBlog() {
-    this.route.navigate([`blogs/edit-blog/${this.itemId}`])
+    this.route.navigate([`blogs/edit-blog/${this.blogId}`])
   }
 
   deleteSingleBlog () {
-    API.del("blogApi", "/blogs/" + this.itemId, {})
+    API.del("blogApi", "/blogs/" + this.blogId, {})
     .then((response: any) => {
       this.route.navigate(['blogs'])
     })
@@ -68,12 +68,23 @@ export class SingleBlogComponent implements OnInit {
     });
   }
 
+  clearComments() {
+    API.put("blogApi", "/blogs/" + this.blogId, { body: {comments: []} })
+    .then((response: any) => {
+        // console.log(response)
+      })
+      .catch((error: { response: any; }) => {
+        console.log("error:", error.response);
+        console.log(this.blogId);
+      });
+  }
+
   
   updateBlogVotes(votes:any) {
     // let newVoters = this.blog.votedBy ? [...this.blog.votedBy] : [this.username]  
     console.log(votes)
 
-    API.put("blogApi", "/blogs/" + this.itemId, { body: votes })
+    API.put("blogApi", "/blogs/" + this.blogId, { body: votes })
       .then((response: any) => {
         console.log(response)
         console.log("successfully voted")

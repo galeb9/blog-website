@@ -40,8 +40,7 @@ button {
     background-color: var(--secondary);
     color: white;
 }
-button,
-.vote-blog__btn {
+button {
     padding: 0.6em 1.8em;
     font-size: 14px;
     cursor: pointer;
@@ -82,19 +81,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .comments__comment {
     border-radius: var(--radius);
     transition: var(--transition);
+    &:hover .comments__comment-body {
+        margin-bottom: 25px;
+        box-shadow: 
+            rgba(107, 107, 179, 0.4) -5px 5px, 
+            rgba(107, 107, 179, 0.3) -10px 10px, 
+            rgba(107, 107, 179, 0.2) -15px 15px, 
+    } 
     .comments__comment-body {
         border-radius: var(--radius);
         padding: 15px 20px;
         transition: var(--transition);
         box-shadow: rgba(0, 0, 0, 0.24) -8px 10px 13px;
         margin-bottom: 14px;
-        &:hover {
-            margin-bottom: 25px;
-            box-shadow: 
-                rgba(107, 107, 179, 0.4) -5px 5px, 
-                rgba(107, 107, 179, 0.3) -10px 10px, 
-                rgba(107, 107, 179, 0.2) -15px 15px, 
-        } 
     }
     .comments__comment-text {
         margin-left: $avatarSize + 8px;

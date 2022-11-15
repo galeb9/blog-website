@@ -25,6 +25,7 @@ import { BlogsComponent } from './views/blogs/blogs.component';
 import { AddBlogComponent } from './views/add-blog/add-blog.component';
 import { EditBlogComponent } from './views/edit-blog/edit-blog.component';
 import { CreateCommentComponent } from './components/comments/create-comment/create-comment.component';
+import { CreateChainCommentComponent } from './components/comments/create-chain-comment/create-chain-comment.component';
 
 // router
 const appRoutes: Routes = [
@@ -68,7 +69,8 @@ const appRoutes: Routes = [
     AvatarComponent,
     EditBlogComponent,
     AllCommentsComponent,
-    CreateCommentComponent
+    CreateCommentComponent,
+    CreateChainCommentComponent
   ],
   imports: [
     BrowserModule,

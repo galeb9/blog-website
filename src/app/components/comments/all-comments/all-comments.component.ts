@@ -9,7 +9,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./all-comments.component.scss']
 })
 export class AllCommentsComponent implements OnInit {
-
   @Input() comments: Comment[] = []; 
   isLoggedIn!: boolean;
   author!: string;
@@ -21,6 +20,9 @@ export class AllCommentsComponent implements OnInit {
   newChainComment!:string;
   chainCommentOpen: boolean = false;
   // chainCommentOpen: boolean = true;
+
+  toggleReplies: any = {};
+  toggleComments: any = {};
 
   constructor(private route: ActivatedRoute) { }
 
@@ -48,23 +50,31 @@ export class AllCommentsComponent implements OnInit {
       .catch(()=> this.isLoggedIn = false)
   }
 
-  commentOnBlog() {
-    // this.checkLoggedIn();
-    this.commentOpen = true
-  }
-
-  createNewComment(newComment: any) {
-    console.log("new:", newComment)
-    const allComments = [...this.comments, newComment ]
-
-    API.put("blogApi", "/blogs/" + this.blogId, { body: {comments: allComments} })
-    .then((response: any) => {
-        // console.log(response)
+  updateComments(newData: any) {
+    if(newData) {
+      API.put("blogApi", "/blogs/" + this.blogId, { body: {comments: newData} })
+      .then((response: any) => {
+        console.log(response)
       })
       .catch((error: { response: any; }) => {
         console.log("error:", error.response);
         console.log(this.blogId);
       });
+    }
+  }
+
+  commentOnBlog() {
+    this.commentOpen = true
+  }
+
+  cancelComment() {
+    this.commentOpen = false
+    this.newComment = ""
+  }
+
+  createNewComment(newComment: any) {
+    const allComments = [...this.comments, newComment ]
+    this.updateComments(allComments)
   }
 
   postComment(newComment: string) {
@@ -84,39 +94,29 @@ export class AllCommentsComponent implements OnInit {
 
       this.comments.push(comment);
 
-      this.author = "";
       this.newComment = "";
       this.commentOpen = false;
+      console.log("posted comment")
     } else {
       alert("Please write a comment!!!")
     }
   }
 
-  cancelComment() {
-    this.commentOpen = false
-    this.author = ""
-    this.newComment = ""
-  }
-
-  // chain comments
-  openChainComments() {
-    this.chainCommentOpen = true;
-  }
-  closeChainComments() {
-    this.chainCommentOpen = false;
-  }
-
-  addChainComment (currentComment: Comment) {
+  postChainComment (newComment: string, currentComment: Comment, toggleIndex: number) {
     const chainComment = {
       author: this.author,
-      text: this.newChainComment,
+      text: newComment,
       replies: [],
       votedBy: [],
       likes: 0,
       dislikes: 0,
     }
-    currentComment.replies.push(chainComment)
-    if(this.newChainComment) this.createNewComment(currentComment);
+
+    if(newComment) {
+      currentComment.replies.push(chainComment)
+      this.updateComments(this.comments)
+      this.toggleReplies[toggleIndex] = 0;
+    } 
     else alert("Please comment on this comment")
   }
 
@@ -125,4 +125,8 @@ export class AllCommentsComponent implements OnInit {
     console.log(votes)
   }
 
+  updateReplayVotes(data: any) {
+    this.updateComments(this.comments)
+    console.log(data)
+  }
 }

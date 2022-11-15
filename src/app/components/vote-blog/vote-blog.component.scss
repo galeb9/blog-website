@@ -6,8 +6,14 @@
         display: flex;
         gap: 8px;
         transition: var(--transition);
-        .vote-blog__action {
 
+        padding: 0.6em;
+        cursor: pointer;
+        border-radius: var(--radius);
+        box-shadow:  var(--shadow);
+
+        .vote-blog__action {
+            max-width: 16px;
         }
         .vote-blog__count {
             border-left: 2px solid var(--secondary);
@@ -16,9 +22,13 @@
     }
     .liked { background-color: var(--secondary) }     
     .disliked { background-color: var(--error) }
+    .liked img, 
+    .disliked img {
+        -webkit-filter: invert(100%); /* Safari/Chrome */
+        filter: invert(100%);        
+    }
     .voted {
         color: white;
-        border: 2px solid transparent;
         .vote-blog__count {
             border-left: 2px solid white;
             padding-left: 8px;
