@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+$avatarSize: 34px;
+$greyBg: rgba(158, 151, 151, 0.397);
+
 * {
     margin: 0;
     padding: 0;
@@ -61,3 +64,54 @@ button,
 // end auth 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+// comments
+.comments__comment-create-btn {
+    margin-left: 26px;
+}
+.comments__btn {
+    margin-bottom: 16px;
+    width: 130px;
+}
+.comments__btn--cancel {
+    transition: var(--transition);
+    background-color: var(--error);
+    border-color: var(--error);
+}
+.comments__comment {
+    border-radius: var(--radius);
+    transition: var(--transition);
+    .comments__comment-body {
+        border-radius: var(--radius);
+        padding: 15px 20px;
+        transition: var(--transition);
+        box-shadow: rgba(0, 0, 0, 0.24) -8px 10px 13px;
+        margin-bottom: 14px;
+        &:hover {
+            margin-bottom: 25px;
+            box-shadow: 
+                rgba(107, 107, 179, 0.4) -5px 5px, 
+                rgba(107, 107, 179, 0.3) -10px 10px, 
+                rgba(107, 107, 179, 0.2) -15px 15px, 
+        } 
+    }
+    .comments__comment-text {
+        margin-left: $avatarSize + 8px;
+    }
+
+    .comments__comment-input {
+        padding: 0 6px 6px;
+        border: none;
+        border-bottom: 2px solid var(--secondary);
+        outline: none;
+        width: max-content;
+        min-width: 300px;
+    }
+    .comments__comment-actions {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 10px;
+    }
+}

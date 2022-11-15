@@ -2,17 +2,17 @@ interface Voter  {
     name: string;
     liked: boolean;
 }
+
 export interface Comment {
     author: string;
     text: string;
-    replies: string[];
+    replies: Comment[];
     votedBy: {
         [key: number]: Voter;
     };
     likes: number;
     dislikes: number;
 }
-
 export interface Blog {
     id?: number;
     title: string;

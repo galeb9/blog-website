@@ -20,7 +20,7 @@
             <button (click)="deleteSingleBlog()" class="single-blog__actions-btns-delete">Delete</button>
         </div>
     </div>
-    <app-comments [comments]="blog.comments"></app-comments>
+    <app-all-comments [comments]="blog.comments"></app-all-comments>
 
 </div>
 <a routerLink="/blogs" class="go-back">Back to blogs</a>

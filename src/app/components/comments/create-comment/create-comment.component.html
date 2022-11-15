@@ -1,0 +1,10 @@
+<div class="comments__comment-create comments__comment">
+    <app-avatar [author]="author"></app-avatar>
+    <input 
+        class="comments__comment-input comments__comment-text" 
+        type="text" 
+        placeholder="Write comment on this line..."
+        [(ngModel)]="newComment"
+    />
+    <button class="comments__comment-create-btn" [disabled]="!newComment" (click)="postComment()">Post</button>
+</div>

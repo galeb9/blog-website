@@ -1,15 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Comment } from '../blogs/Blog'
+import { Comment } from '../../blogs/Blog'
 import { API, Auth } from 'aws-amplify';
 import { ActivatedRoute } from '@angular/router';
-import { createPublicKey } from 'crypto';
 
 @Component({
-  selector: 'app-comments',
-  templateUrl: './comments.component.html',
-  styleUrls: ['./comments.component.scss']
+  selector: 'app-all-comments',
+  templateUrl: './all-comments.component.html',
+  styleUrls: ['./all-comments.component.scss']
 })
-export class CommentsComponent implements OnInit {
+export class AllCommentsComponent implements OnInit {
+
   @Input() comments: Comment[] = []; 
   isLoggedIn!: boolean;
   author!: string;
@@ -19,8 +19,8 @@ export class CommentsComponent implements OnInit {
   commentOpen: boolean = false;
 
   newChainComment!:string;
-  // chainCommentOpen: boolean = false;
-  chainCommentOpen: boolean = true;
+  chainCommentOpen: boolean = false;
+  // chainCommentOpen: boolean = true;
 
   constructor(private route: ActivatedRoute) { }
 
@@ -53,8 +53,22 @@ export class CommentsComponent implements OnInit {
     this.commentOpen = true
   }
 
-  postComment() {
-    this.newComment = this.capitalize(this.newComment)
+  createNewComment(newComment: any) {
+    console.log("new:", newComment)
+    const allComments = [...this.comments, newComment ]
+
+    API.put("blogApi", "/blogs/" + this.blogId, { body: {comments: allComments} })
+    .then((response: any) => {
+        // console.log(response)
+      })
+      .catch((error: { response: any; }) => {
+        console.log("error:", error.response);
+        console.log(this.blogId);
+      });
+  }
+
+  postComment(newComment: string) {
+    this.newComment = this.capitalize(newComment)
 
     const comment = {
       author: this.author,
@@ -84,22 +98,6 @@ export class CommentsComponent implements OnInit {
     this.newComment = ""
   }
 
-  createNewComment(newComment: any) {
-    console.log("new:", newComment)
-    const allComments = [...this.comments, newComment ]
-
-    API.put("blogApi", "/blogs/" + this.blogId, { body: {comments: allComments} })
-    .then((response: any) => {
-        // console.log(response)
-      })
-      .catch((error: { response: any; }) => {
-        console.log("error:", error.response);
-        console.log(this.blogId);
-      });
-  }
-
-
-
   // chain comments
   openChainComments() {
     this.chainCommentOpen = true;
@@ -108,8 +106,18 @@ export class CommentsComponent implements OnInit {
     this.chainCommentOpen = false;
   }
 
-  addChainComment () {
-    
+  addChainComment (currentComment: Comment) {
+    const chainComment = {
+      author: this.author,
+      text: this.newChainComment,
+      replies: [],
+      votedBy: [],
+      likes: 0,
+      dislikes: 0,
+    }
+    currentComment.replies.push(chainComment)
+    if(this.newChainComment) this.createNewComment(currentComment);
+    else alert("Please comment on this comment")
   }
 
   // chain comment votes
