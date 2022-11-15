@@ -22,7 +22,7 @@
       "function": {
         "blogWebsiteLambda": {
           "deploymentBucketName": "amplify-blogwebsite-dev-134302-deployment",
-          "s3Key": "amplify-builds/blogWebsiteLambda-2f503436365634554167-build.zip"
+          "s3Key": "amplify-builds/blogWebsiteLambda-774b696e69307a713952-build.zip"
         }
       },
       "api": {

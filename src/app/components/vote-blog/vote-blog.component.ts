@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
-import { API, Auth } from 'aws-amplify';
 import { ActivatedRoute } from '@angular/router';
 import { EventEmitter } from '@angular/core';
 
@@ -9,6 +8,7 @@ import { EventEmitter } from '@angular/core';
   templateUrl: './vote-blog.component.html',
   styleUrls: ['./vote-blog.component.scss']
 })
+
 export class VoteBlogComponent implements OnInit {
   @Input() likes:number = 0;
   @Input() dislikes:number = 0;
