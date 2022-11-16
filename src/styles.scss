@@ -71,7 +71,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 .comments__btn {
     margin-bottom: 16px;
-    width: 130px;
+    // width: 130px;
+    img {
+        max-width: 18px;
+    }
+}
+.comments__btn--row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    img {
+        max-width: 18px;
+    }
 }
 .comments__btn--cancel {
     transition: var(--transition);
@@ -92,7 +103,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
         border-radius: var(--radius);
         padding: 15px 20px;
         transition: var(--transition);
-        box-shadow: rgba(0, 0, 0, 0.24) -8px 10px 13px;
+        box-shadow: rgb(0 0 0 / 24%) -8px 4px 13px;
         margin-bottom: 14px;
     }
     .comments__comment-text {

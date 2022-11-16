@@ -18,12 +18,10 @@
         <div class="single-blog__actions-btns" *ngIf="blog.author === username">
             <button (click)="editBlog()" class="single-blog__actions-btns-edit">Edit</button>
             <button (click)="deleteSingleBlog()" class="single-blog__actions-btns-delete">Delete</button>
-            
             <button (click)="clearComments()" class="single-blog__actions-btns-delete">Delete comments</button>
-            
         </div>
     </div>
-    <app-all-comments [comments]="blog.comments"></app-all-comments>
+    <app-all-comments [comments]="blog.comments" [blogAuthor]="blog.author"></app-all-comments>
 
 </div>
 <a routerLink="/blogs" class="go-back">Back to blogs</a>

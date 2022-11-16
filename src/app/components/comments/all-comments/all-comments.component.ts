@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AllCommentsComponent implements OnInit {
   @Input() comments: Comment[] = []; 
+  @Input() blogAuthor: string = "";
   isLoggedIn!: boolean;
   author!: string;
   blogId:any = null;
@@ -23,6 +24,12 @@ export class AllCommentsComponent implements OnInit {
 
   toggleReplies: any = {};
   toggleComments: any = {};
+  toggleEditComment: any = {};
+  toggleEditReplay: any = {};
+
+  // edit comments
+  isEditing: boolean = false;
+
 
   constructor(private route: ActivatedRoute) { }
 
@@ -31,6 +38,10 @@ export class AllCommentsComponent implements OnInit {
     setTimeout(() => {
       this.checkLoggedIn();
     }, 400);
+  }
+
+  toggle(item:boolean) {
+    item = !item
   }
 
   capitalize(str: string) {
@@ -49,6 +60,15 @@ export class AllCommentsComponent implements OnInit {
       })
       .catch(()=> this.isLoggedIn = false)
   }
+
+  isCommentAuthor(commentAuthor: string) {
+    return this.author === commentAuthor
+  }
+
+  isBlogAuthor() {
+    return this.author === this.blogAuthor
+  }
+
 
   updateComments(newData: any) {
     if(newData) {
@@ -122,11 +142,31 @@ export class AllCommentsComponent implements OnInit {
 
   // chain comment votes
   updateBlogVotes(votes: any) {
-    console.log(votes)
+    console.log(votes) 
   }
 
   updateReplayVotes(data: any) {
-    this.updateComments(this.comments)
-    console.log(data)
+    // this.updateComments(this.comments)
+  }
+
+
+  // edit comment
+  editComment(commentIndex:number) {
+    // this.updateComments(this.comments)
+    this.toggleEditComment[commentIndex] = false; 
+  }
+
+  editReplay(commentIndex:number) {
+    // this.updateComments(this.comments)
+    this.toggleEditReplay[commentIndex] = false; 
+  }
+
+  deleteComment(comments:any, comment:any) {
+    let index = comments.indexOf(comment);
+    if (index !== -1) {
+      comments.splice(index, 1);
+      // this.updateComments(this.comments);
+    }
+
   }
 }

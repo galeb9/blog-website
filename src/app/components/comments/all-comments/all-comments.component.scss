@@ -14,6 +14,16 @@ $greyBg: rgba(158, 151, 151, 0.397);
         .comments__replay {
             padding-bottom: 10px;
             min-width: 300px;
+            .comments__replay-btns {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
         }
+    }
+    .comments__edit-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
     }
 }
