@@ -33,9 +33,9 @@
                 [likes]="comment.likes" 
                 [dislikes]="comment.dislikes"
                 [votedBy]="comment.votedBy"
-                [username]="author"
-                (like)="updateBlogVotes($event)"
-                (dislike)="updateBlogVotes($event)"
+                [username]="username"
+                (like)="updateCommentVotes($event, comment)"
+                (dislike)="updateCommentVotes($event, comment)"
             ></app-vote-blog>
 
             <button 
@@ -83,13 +83,13 @@
                                     [likes]="chainComment.likes" 
                                     [dislikes]="chainComment.dislikes"
                                     [votedBy]="chainComment.votedBy"
-                                    [username]="author"
-                                    (like)="updateReplayVotes($event)"
-                                    (dislike)="updateReplayVotes($event)"
+                                    [username]="username"
+                                    (like)="updateReplayVotes($event, comment, chainComment)"
+                                    (dislike)="updateReplayVotes($event, comment, chainComment)"
                                 ></app-vote-blog>
                                 <button 
                                     class="comments__btn--row  edit__comments-btn" 
-                                    *ngIf="isCommentAuthor(comment.author) && !toggleEditComment[i]" 
+                                    *ngIf="isCommentAuthor(comment.author) && !toggleEditReplay[j]" 
                                     (click)="toggleEditReplay[j] = true"
                                 >
                                     <img src="assets/svgs/edit.svg">
@@ -123,15 +123,15 @@
             <app-create-chain-comment
                 *ngIf="toggleReplies[i]"
                 (createNewChainComment)="postChainComment($event, comment, i)"
-                [author]="author"
+                [author]="username"
             ></app-create-chain-comment>
         </div>
 
     </div>
 
     <app-create-comment 
-        *ngIf="author && commentOpen"
-        [author]="author"
+        *ngIf="username && commentOpen"
+        [author]="username"
         (createNewComment)="postComment($event)"
     ></app-create-comment>
 </div>

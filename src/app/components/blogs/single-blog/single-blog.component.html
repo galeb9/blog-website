@@ -21,7 +21,11 @@
             <button (click)="clearComments()" class="single-blog__actions-btns-delete">Delete comments</button>
         </div>
     </div>
-    <app-all-comments [comments]="blog.comments" [blogAuthor]="blog.author"></app-all-comments>
+    <app-all-comments 
+        [comments]="blog.comments" 
+        [blogAuthor]="blog.author" 
+        [username]="username"
+    ></app-all-comments>
 
 </div>
 <a routerLink="/blogs" class="go-back">Back to blogs</a>

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Comment } from '../../blogs/Blog'
-import { API, Auth } from 'aws-amplify';
+import { API } from 'aws-amplify';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -11,8 +11,9 @@ import { ActivatedRoute } from '@angular/router';
 export class AllCommentsComponent implements OnInit {
   @Input() comments: Comment[] = []; 
   @Input() blogAuthor: string = "";
-  isLoggedIn!: boolean;
-  author!: string;
+  @Input() username: string = "";
+
+  isLoggedIn: boolean = false;
   blogId:any = null;
 
   newComment!:string;
@@ -35,13 +36,21 @@ export class AllCommentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getItemId();
+    this.sortByUpvotes(this.comments);
+    console.log(this.username)
+    // this.checkLoggedIn();
     setTimeout(() => {
-      this.checkLoggedIn();
-    }, 400);
+    this.checkLoggedIn();
+      
+    }, 1000);
   }
 
   toggle(item:boolean) {
-    item = !item
+    item = !item;
+  }
+
+  sortByUpvotes(comments:any) {
+    comments = comments.sort((a:any, b:any) =>  b.likes - a.likes);
   }
 
   capitalize(str: string) {
@@ -53,20 +62,16 @@ export class AllCommentsComponent implements OnInit {
   }
 
   checkLoggedIn() {
-    Auth.currentAuthenticatedUser()
-      .then(user =>  {
-        this.isLoggedIn = true
-        this.author = user.username
-      })
-      .catch(()=> this.isLoggedIn = false)
+    if(this.username) this.isLoggedIn = true;
+    console.log("logged in?", this.isLoggedIn)
   }
 
   isCommentAuthor(commentAuthor: string) {
-    return this.author === commentAuthor
+    return this.username === commentAuthor
   }
 
   isBlogAuthor() {
-    return this.author === this.blogAuthor
+    return this.username === this.blogAuthor
   }
 
 
@@ -101,7 +106,7 @@ export class AllCommentsComponent implements OnInit {
     this.newComment = this.capitalize(newComment)
 
     const comment = {
-      author: this.author,
+      author: this.username,
       text: this.newComment,
       replies: [],
       votedBy: [],
@@ -124,7 +129,7 @@ export class AllCommentsComponent implements OnInit {
 
   postChainComment (newComment: string, currentComment: Comment, toggleIndex: number) {
     const chainComment = {
-      author: this.author,
+      author: this.username,
       text: newComment,
       replies: [],
       votedBy: [],
@@ -141,14 +146,23 @@ export class AllCommentsComponent implements OnInit {
   }
 
   // chain comment votes
-  updateBlogVotes(votes: any) {
-    console.log(votes) 
+  updateCommentVotes(votes: any, comment: any) {
+    let findCommentIndex = this.comments.indexOf(comment);
+    if (findCommentIndex !== -1) {
+      comment = {...comment,...votes};
+      this.comments.splice(findCommentIndex, 1, comment);
+      this.updateComments(this.comments)
+    }
   }
 
-  updateReplayVotes(data: any) {
-    // this.updateComments(this.comments)
+  updateReplayVotes(votes: any, mainComment: any, chainComment: any) {
+    let findReplayIndex = this.comments.indexOf(mainComment);
+    if (findReplayIndex !== -1) {
+      const chainIndex = this.comments[findReplayIndex].replies.indexOf(chainComment)
+      this.comments[findReplayIndex].replies[chainIndex] = {...chainComment,...votes}; 
+      this.updateComments(this.comments)
+    }
   }
-
 
   // edit comment
   editComment(commentIndex:number) {
@@ -167,6 +181,5 @@ export class AllCommentsComponent implements OnInit {
       comments.splice(index, 1);
       // this.updateComments(this.comments);
     }
-
   }
 }

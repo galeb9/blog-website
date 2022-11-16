@@ -104,7 +104,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
         padding: 15px 20px;
         transition: var(--transition);
         box-shadow: rgb(0 0 0 / 24%) -8px 4px 13px;
-        margin-bottom: 14px;
+        margin: 14px 0;
     }
     .comments__comment-text {
         margin-left: $avatarSize + 8px;
